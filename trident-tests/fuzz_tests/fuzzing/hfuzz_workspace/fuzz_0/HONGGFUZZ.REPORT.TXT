@@ -1,0 +1,138 @@
+=====================================================================
+TIME: 2024-09-16.14:31:17
+=====================================================================
+FUZZER ARGS:
+ mutationsPerRun : 6
+ externalCmd     : NULL
+ fuzzStdin       : FALSE
+ timeout         : 10 (sec)
+ ignoreAddr      : (nil)
+ ASLimit         : 0 (MiB)
+ RSSLimit        : 0 (MiB)
+ DATALimit       : 0 (MiB)
+ wordlistFile    : NULL
+ dynFileMethod   : 
+ fuzzTarget      : trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0 
+CRASH:
+DESCRIPTION: 
+ORIG_FNAME: 00000000000000000000000000000000.00000000.honggfuzz.cov
+FUZZ_FNAME: trident-tests/fuzz_tests/fuzzing/hfuzz_workspace/fuzz_0/SIGABRT.PC.7ffff7d1b9fc.STACK.f0bb8be88.CODE.-6.ADDR.0.INSTR.mov____%eax,%r13d.fuzz
+PID: 41891
+SIGNAL: SIGABRT (6)
+PC: 0x7ffff7d1b9fc
+FAULT ADDRESS: 0x0
+INSTRUCTION: mov____%eax,%r13d
+STACK HASH: 0000000f0bb8be88
+STACK:
+ <0x00007ffff7cc7476> [func:UNKNOWN file: line:0 module:/usr/lib/x86_64-linux-gnu/libc.so.6]
+ <0x00007ffff7cad7f3> [func:UNKNOWN file: line:0 module:/usr/lib/x86_64-linux-gnu/libc.so.6]
+ <0x00005555562d78fa> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x000055555566f4d9> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x0000555555817306> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x000055555630737a> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x00005555563070aa> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x0000555556307039> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x0000555556307026> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x00005555555e6e02> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x00005555555e6f94> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x0000555555679c49> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x0000555555677b9a> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x0000555555677b78> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x00005555562d7613> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x0000555555677bcd> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x00007ffff7caed90> [func:UNKNOWN file: line:0 module:/usr/lib/x86_64-linux-gnu/libc.so.6]
+ <0x00007ffff7caee40> [func:UNKNOWN file: line:0 module:/usr/lib/x86_64-linux-gnu/libc.so.6]
+ <0x00005555556769c5> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+=====================================================================
+=====================================================================
+TIME: 2024-09-16.14:39:48
+=====================================================================
+FUZZER ARGS:
+ mutationsPerRun : 6
+ externalCmd     : NULL
+ fuzzStdin       : FALSE
+ timeout         : 10 (sec)
+ ignoreAddr      : (nil)
+ ASLimit         : 0 (MiB)
+ RSSLimit        : 0 (MiB)
+ DATALimit       : 0 (MiB)
+ wordlistFile    : NULL
+ dynFileMethod   : 
+ fuzzTarget      : trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0 
+CRASH:
+DESCRIPTION: 
+ORIG_FNAME: 591431dfac00dcc3dc9ffe00b90b93b6.00000018.honggfuzz.cov
+FUZZ_FNAME: trident-tests/fuzz_tests/fuzzing/hfuzz_workspace/fuzz_0/SIGABRT.PC.7ffff7d1b9fc.STACK.18a86052cb.CODE.-6.ADDR.0.INSTR.mov____%eax,%r13d.fuzz
+PID: 90576
+SIGNAL: SIGABRT (6)
+PC: 0x7ffff7d1b9fc
+FAULT ADDRESS: 0x0
+INSTRUCTION: mov____%eax,%r13d
+STACK HASH: 00000018a86052cb
+STACK:
+ <0x00007ffff7cc7476> [func:UNKNOWN file: line:0 module:/usr/lib/x86_64-linux-gnu/libc.so.6]
+ <0x00007ffff7cad7f3> [func:UNKNOWN file: line:0 module:/usr/lib/x86_64-linux-gnu/libc.so.6]
+ <0x00005555562d561a> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x000055555566f2d9> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x0000555555815006> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x000055555630509a> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x0000555556304dca> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x0000555556304d59> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x0000555556304d46> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x00005555555e6c02> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x00005555555e6d94> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x0000555555679362> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x000055555567799a> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x0000555555677978> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x00005555562d5333> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x00005555556779cd> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x00007ffff7caed90> [func:UNKNOWN file: line:0 module:/usr/lib/x86_64-linux-gnu/libc.so.6]
+ <0x00007ffff7caee40> [func:UNKNOWN file: line:0 module:/usr/lib/x86_64-linux-gnu/libc.so.6]
+ <0x00005555556767c5> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+=====================================================================
+=====================================================================
+TIME: 2024-09-16.14:40:03
+=====================================================================
+FUZZER ARGS:
+ mutationsPerRun : 6
+ externalCmd     : NULL
+ fuzzStdin       : FALSE
+ timeout         : 10 (sec)
+ ignoreAddr      : (nil)
+ ASLimit         : 0 (MiB)
+ RSSLimit        : 0 (MiB)
+ DATALimit       : 0 (MiB)
+ wordlistFile    : NULL
+ dynFileMethod   : 
+ fuzzTarget      : trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0 
+CRASH:
+DESCRIPTION: 
+ORIG_FNAME: ff57fa51f597dec185ecd8b0e0b9eb1e.00000053.honggfuzz.cov
+FUZZ_FNAME: trident-tests/fuzz_tests/fuzzing/hfuzz_workspace/fuzz_0/SIGABRT.PC.7ffff7d1b9fc.STACK.18a86052cb.CODE.-6.ADDR.0.INSTR.mov____%eax,%r13d.fuzz
+PID: 90933
+SIGNAL: SIGABRT (6)
+PC: 0x7ffff7d1b9fc
+FAULT ADDRESS: 0x0
+INSTRUCTION: mov____%eax,%r13d
+STACK HASH: 00000018a86052cb
+STACK:
+ <0x00007ffff7cc7476> [func:UNKNOWN file: line:0 module:/usr/lib/x86_64-linux-gnu/libc.so.6]
+ <0x00007ffff7cad7f3> [func:UNKNOWN file: line:0 module:/usr/lib/x86_64-linux-gnu/libc.so.6]
+ <0x00005555562d561a> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x000055555566f2d9> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x0000555555815006> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x000055555630509a> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x0000555556304dca> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x0000555556304d59> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x0000555556304d46> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x00005555555e6c02> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x00005555555e6d94> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x0000555555679362> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x000055555567799a> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x0000555555677978> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x00005555562d5333> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x00005555556779cd> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+ <0x00007ffff7caed90> [func:UNKNOWN file: line:0 module:/usr/lib/x86_64-linux-gnu/libc.so.6]
+ <0x00007ffff7caee40> [func:UNKNOWN file: line:0 module:/usr/lib/x86_64-linux-gnu/libc.so.6]
+ <0x00005555556767c5> [func:UNKNOWN file: line:0 module:/home/nic/repositories/fuzzing-with-trident-yongqjn/project-fuzzing/Sol-Lending-Pool/trident-tests/fuzz_tests/fuzzing/hfuzz_target/x86_64-unknown-linux-gnu/release/fuzz_0]
+=====================================================================

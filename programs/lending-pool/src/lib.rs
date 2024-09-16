@@ -1,22 +1,19 @@
 use anchor_lang::prelude::*;
 
 use anchor_spl::{
-    token_2022_extensions,
     associated_token::AssociatedToken,
     token_2022::{
         self,
         spl_token_2022::{
-            state::Mint as MintState,
             extension::{
-                interest_bearing_mint::InterestBearingConfig,
-                StateWithExtensions, BaseStateWithExtensions
+                interest_bearing_mint::InterestBearingConfig, BaseStateWithExtensions,
+                StateWithExtensions,
             },
+            state::Mint as MintState,
         },
     },
-    token_interface::{
-        Mint,
-        Token2022, TokenAccount,
-    },
+    token_2022_extensions,
+    token_interface::{Mint, Token2022, TokenAccount},
 };
 
 mod types;
@@ -28,7 +25,10 @@ const DISCRIMINATOR: usize = 8;
 
 #[program]
 pub mod lending_pool {
-    use anchor_spl::{token_2022::spl_token_2022::extension::interest_bearing_mint, token_interface::interest_bearing_mint_update_rate};
+    use anchor_spl::{
+        token_2022::spl_token_2022::extension::interest_bearing_mint,
+        token_interface::interest_bearing_mint_update_rate,
+    };
 
     use super::*;
 
@@ -98,19 +98,19 @@ pub mod lending_pool {
             authority: ctx.accounts.isol_mint_authority.to_account_info(),
         };
         let cpi_program = ctx.accounts.token_program.to_account_info();
-        
 
-        let isol_mint_auth_seeds:&[&[&[u8]]] = &[&[b"isol_mint_auth", &[ctx.bumps.isol_mint_authority]]];
-        
-        let cpi_ctx = CpiContext::new_with_signer(
-            cpi_program, 
-            cpi_accounts,
-            &isol_mint_auth_seeds,
-        );
+        let isol_mint_auth_seeds: &[&[&[u8]]] =
+            &[&[b"isol_mint_auth", &[ctx.bumps.isol_mint_authority]]];
+
+        let cpi_ctx = CpiContext::new_with_signer(cpi_program, cpi_accounts, &isol_mint_auth_seeds);
         token_2022::mint_to(cpi_ctx, amount)?;
 
         // Update total deposits
-        ctx.accounts.pool_pda.total_deposits = ctx.accounts.pool_pda.total_deposits.checked_add(amount)
+        ctx.accounts.pool_pda.total_deposits = ctx
+            .accounts
+            .pool_pda
+            .total_deposits
+            .checked_add(amount)
             .ok_or(LendingPoolError::MathOverflow)?;
 
         Ok(())
@@ -122,7 +122,10 @@ pub mod lending_pool {
 
         // Ensure the pool has enough available SOL to borrow
         let available_borrows = calculate_available_borrows(&ctx.accounts.pool_pda);
-        require!(available_borrows >= amount, LendingPoolError::NotEnoughAvailableBorrows);
+        require!(
+            available_borrows >= amount,
+            LendingPoolError::NotEnoughAvailableBorrows
+        );
 
         // Determine the required collateral
         let required_collateral = calculate_required_collateral(amount)?;
@@ -157,14 +160,19 @@ pub mod lending_pool {
             .try_borrow_mut_lamports()? += amount;
 
         // Update total borrows
-        ctx.accounts.pool_pda.total_borrows = ctx.accounts.pool_pda.total_borrows.checked_add(amount)
+        ctx.accounts.pool_pda.total_borrows = ctx
+            .accounts
+            .pool_pda
+            .total_borrows
+            .checked_add(amount)
             .ok_or(LendingPoolError::MathOverflow)?;
 
         // Update interest rate
         let new_rate = compute_interest_rate(&ctx.accounts.pool_pda)?;
-        let isol_mint_auth_seeds:&[&[&[u8]]] = &[&[b"isol_mint_auth", &[ctx.bumps.isol_mint_authority]]];
+        let isol_mint_auth_seeds: &[&[&[u8]]] =
+            &[&[b"isol_mint_auth", &[ctx.bumps.isol_mint_authority]]];
         let cpi_ctx = CpiContext::new_with_signer(
-            ctx.accounts.token_program.to_account_info(), 
+            ctx.accounts.token_program.to_account_info(),
             token_2022_extensions::InterestBearingMintUpdateRate {
                 token_program_id: ctx.accounts.token_program.to_account_info(),
                 mint: ctx.accounts.isol_mint.to_account_info(),
@@ -175,14 +183,17 @@ pub mod lending_pool {
         interest_bearing_mint_update_rate(cpi_ctx, new_rate)?;
 
         // Project the total amount to repay for the entire loan term.
-        let interest_amount = (amount as u128 * new_rate as u128 / 10000).try_into()
+        let interest_amount = (amount as u128 * new_rate as u128 / 10000)
+            .try_into()
             .map_err(|_| LendingPoolError::MathOverflow)?;
-        let total_amount_to_repay = amount.checked_add(interest_amount)
+        let total_amount_to_repay = amount
+            .checked_add(interest_amount)
             .ok_or(LendingPoolError::MathOverflow)?;
 
         // Set expiration time to one year from now
         let current_time = Clock::get()?.unix_timestamp as u64;
-        let expiration_time = current_time.checked_add(365 * 24 * 60 * 60) // 365 days in seconds
+        let expiration_time = current_time
+            .checked_add(365 * 24 * 60 * 60) // 365 days in seconds
             .ok_or(LendingPoolError::MathOverflow)?;
 
         // Update the loan record PDA
@@ -194,18 +205,22 @@ pub mod lending_pool {
 
     /// Same as `interest_bearing_mint::InterestBearingConfig::amount_to_ui_amount`,
     /// except you can specify a timestamp for projecting the amount.
-    pub fn amount_to_ui_amount(ctx: Context<AmountToUiAmount>, amount: u64, unix_timestamp: u64) -> Result<()> {
-
+    pub fn amount_to_ui_amount(
+        ctx: Context<AmountToUiAmount>,
+        amount: u64,
+        unix_timestamp: u64,
+    ) -> Result<()> {
         let mint_account_info = ctx.accounts.isol_mint.to_account_info();
         let mint_data = mint_account_info.data.borrow();
         let mint = StateWithExtensions::<MintState>::unpack(&mint_data)?;
-        
-        let ui_amount = mint.get_extension::<InterestBearingConfig>()
+
+        let ui_amount = mint
+            .get_extension::<InterestBearingConfig>()
             .map_err(|_| ProgramError::InvalidAccountData)?
             .amount_to_ui_amount(
                 amount,
                 ctx.accounts.isol_mint.decimals,
-                i64::try_from(unix_timestamp).map_err(|_| LendingPoolError::MathOverflow)?
+                i64::try_from(unix_timestamp).map_err(|_| LendingPoolError::MathOverflow)?,
             )
             .ok_or(ProgramError::InvalidAccountData)?;
 
@@ -224,9 +239,8 @@ fn calculate_available_borrows(pool: &PoolState) -> u64 {
     pool.total_deposits - pool.total_borrows
 }
 
-
 /// Computes the interest rate based on the pool utilization.
-/// 
+///
 /// The interest rate is calculated using a simple linear model:
 /// - At 0% utilization, the interest rate is set to a minimum (e.g., 0%)
 /// - At 100% utilization, the interest rate is set to a maximum (e.g., 100%)
@@ -255,11 +269,16 @@ fn compute_interest_rate(pool: &PoolState) -> Result<i16> {
     // For example, if total_borrows is 75 SOL and total_deposits is 100 SOL,
     // utilization would be (75_000_000_000 * 10000) / 100_000_000_000 = 7500 basis points, or 75%
     let utilization = total_borrows
-        .checked_mul(BASIS_POINTS_DIVISOR)   .ok_or(LendingPoolError::MathOverflow)?
-        .checked_div(total_deposits)         .ok_or(LendingPoolError::MathOverflow)?;
+        .checked_mul(BASIS_POINTS_DIVISOR)
+        .ok_or(LendingPoolError::MathOverflow)?
+        .checked_div(total_deposits)
+        .ok_or(LendingPoolError::MathOverflow)?;
 
     // Log the uncapped utilization rate as a percentage using integer math
-    msg!("Uncapped utilization rate: {}%", utilization * 100 / BASIS_POINTS_DIVISOR);
+    msg!(
+        "Uncapped utilization rate: {}%",
+        utilization * 100 / BASIS_POINTS_DIVISOR
+    );
 
     // Ensure utilization doesn't exceed BASIS_POINTS_DIVISOR (100%)
     let utilization = std::cmp::min(utilization, BASIS_POINTS_DIVISOR);
@@ -267,18 +286,22 @@ fn compute_interest_rate(pool: &PoolState) -> Result<i16> {
     // Calculate interest rate (in basis points)
     // The rate increases linearly from MIN_RATE to MAX_RATE as utilization goes from 0% to 100%
     let interest_rate = (RATE_RANGE as u128)
-        .checked_mul(utilization)           .ok_or(LendingPoolError::MathOverflow)?
-        .checked_div(BASIS_POINTS_DIVISOR)  .ok_or(LendingPoolError::MathOverflow)?
-        .checked_add(MIN_RATE as u128)      .ok_or(LendingPoolError::MathOverflow)?;
+        .checked_mul(utilization)
+        .ok_or(LendingPoolError::MathOverflow)?
+        .checked_div(BASIS_POINTS_DIVISOR)
+        .ok_or(LendingPoolError::MathOverflow)?
+        .checked_add(MIN_RATE as u128)
+        .ok_or(LendingPoolError::MathOverflow)?;
 
     // Log the uncapped interest rate as a percentage using integer math
-    msg!("Uncapped interest rate: {}%", interest_rate * 100 / BASIS_POINTS_DIVISOR);
-    
+    msg!(
+        "Uncapped interest rate: {}%",
+        interest_rate * 100 / BASIS_POINTS_DIVISOR
+    );
+
     // Cap the interest rate at MAX_RATE and convert to i16
     Ok(std::cmp::min(interest_rate, MAX_RATE as u128) as i16)
 }
-
-
 
 #[derive(Accounts)]
 pub struct AmountToUiAmount<'info> {
@@ -432,8 +455,7 @@ pub struct PoolState {
 }
 impl PoolState {
     pub fn len() -> usize {
-        DISCRIMINATOR +
-        U64 + U64
+        DISCRIMINATOR + U64 + U64
     }
 }
 
@@ -447,7 +469,7 @@ impl LoanRecord {
     pub fn len() -> usize {
         DISCRIMINATOR + // Discriminator
         U64 + // amount
-        U64  // expiration_time
+        U64 // expiration_time
     }
 }
 
